@@ -195,6 +195,65 @@ export const siteInfo = {
   }
 };
 
+export const hairItems = [
+  {
+    id: 101,
+    name: "Silky Straight Bundles",
+    description: "3 bundles, 22 inches",
+    price: 180,
+    image: "/hairitem.jpg",
+  },
+  {
+    id: 102,
+    name: "Body Wave Bundles",
+    description: "3 bundles, 24 inches",
+    price: 200,
+    image: "/hairitem.jpg",
+  },
+  {
+    id: 103,
+    name: "Lace Frontal Glue",
+    description: "Strong hold, waterproof",
+    price: 25,
+    image: "/hairitem.jpg",
+  },
+  {
+    id: 104,
+    name: "Wig Cap (2-pack)",
+    description: "Nude, breathable caps",
+    price: 10,
+    image: "/hairitem.jpg",
+  },
+  {
+    id: 105,
+    name: "Edge Control",
+    description: "24-hour hold, no flaking",
+    price: 15,
+    image: "/hairitem.jpg",
+  },
+  {
+    id: 106,
+    name: "Wax Stick",
+    description: "For sleek styles",
+    price: 12,
+    image: "/hairitem.jpg",
+  },
+  {
+    id: 107,
+    name: "HD Lace Frontal",
+    description: "13x4, transparent lace",
+    price: 120,
+    image: "/hairitem.jpg",
+  },
+  {
+    id: 108,
+    name: "Styling Comb Set",
+    description: "Rat tail, wide tooth, etc.",
+    price: 18,
+    image: "/hairitem.jpg",
+  },
+];
+
 // Cart functionality
 export class Cart {
   constructor() {

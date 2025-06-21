@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import CartIcon from "../../components/CartIcon";
+import Header from "../../components/Header";
 
 const services = [
   {
@@ -82,7 +82,6 @@ export default function RevampWig() {
   if (submitted) {
     return (
       <main className="min-h-screen bg-hot-pink-gradient select-none">
-        <CartIcon />
         <div className="flex items-center justify-center min-h-screen px-6">
           <div className="text-center max-w-md bg-white/10 border border-white/20 rounded-2xl p-8 shadow-lg">
             <div className="text-6xl mb-6">✨</div>
@@ -118,19 +117,9 @@ export default function RevampWig() {
   }
 
   return (
-    <main className="min-h-screen bg-hot-pink-gradient select-none">
-      <CartIcon />
+    <main className="min-h-screen bg-hot-pink-gradient select-none pt-20">
+      <Header />
       
-      {/* Header */}
-      <header className="p-6">
-        <Link 
-          href="/" 
-          className="inline-flex items-center gap-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 py-3 rounded-full font-semibold hover:from-pink-600 hover:to-pink-700 transition-all duration-200 hover:scale-105 shadow-lg"
-        >
-          <span>Back to Home</span>
-        </Link>
-      </header>
-
       {/* Title Section */}
       <section className="text-center mb-12 px-6">
         <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
@@ -144,9 +133,9 @@ export default function RevampWig() {
 
       <div className="max-w-6xl mx-auto px-6 pb-12">
         {/* Service Selection */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-white mb-6 text-center">Choose Your Service</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <section className="max-w-4xl mx-auto px-6 pb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">Select a Service</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service) => (
               <div
                 key={service.id}
@@ -187,8 +176,8 @@ export default function RevampWig() {
         )}
 
         {/* Contact Form */}
-        <section className="bg-white/10 border border-white/20 rounded-2xl p-8">
-          <h2 className="text-2xl font-bold text-white mb-6 text-center">Wig Details & Contact</h2>
+        <section className="mt-12 bg-white/10 border border-white/30 rounded-2xl p-6 sm:p-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">Your Details</h2>
           
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

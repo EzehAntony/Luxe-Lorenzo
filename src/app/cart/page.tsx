@@ -3,8 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
 import { removeItem, updateQuantity, clearCart } from "../../store/cartSlice";
-import CartIcon from "../../components/CartIcon";
-import { RootState } from "../../store/types";
+import { RootState } from "../../store/store";
+import Header from "../../components/Header";
 
 type CartItem = {
   id: number;
@@ -33,7 +33,7 @@ export default function Cart() {
     if (newQuantity === 0) {
       dispatch(removeItem(id));
     } else {
-      dispatch(updateQuantity({ id, quantity: newQuantity }));
+      dispatch(updateQuantity({ productId: id, quantity: newQuantity }));
     }
   };
 
@@ -42,19 +42,9 @@ export default function Cart() {
   };
 
   return (
-    <main className="min-h-screen bg-hot-pink-gradient select-none">
-      <CartIcon />
+    <main className="min-h-screen bg-hot-pink-gradient select-none pt-20">
+      <Header />
       
-      {/* Header */}
-      <header className="p-6">
-        <Link 
-          href="/" 
-          className="inline-flex items-center gap-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 py-3 rounded-full font-semibold hover:from-pink-600 hover:to-pink-700 transition-all duration-200 hover:scale-105 shadow-lg"
-        >
-          <span>Back to Home</span>
-        </Link>
-      </header>
-
       {/* Title Section */}
       <section className="text-center mb-8 px-6">
         <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
@@ -66,7 +56,7 @@ export default function Cart() {
       </section>
 
       {/* Cart Content */}
-      <section className="max-w-5xl mx-auto px-6 pb-12">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
         {items.length === 0 ? (
           // Empty Cart
           <div className="text-center py-16">
@@ -82,19 +72,17 @@ export default function Cart() {
           </div>
         ) : (
           // Cart with Items - 2 Column Layout
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Column - Cart Items */}
-            <div className="lg:col-span-3">
-              <div className="bg-white/10 border border-white/30 rounded-2xl p-4 mb-6">
-                <h2 className="text-xl font-bold text-white mb-4">Cart Items</h2>
-                <div className="space-y-3">
-                  {items.map((item) => (
+            <div className="lg:col-span-2 space-y-4">
+              <h2 className="text-2xl font-bold text-white">Your Cart</h2>
+                  {items.map((item: CartItem) => (
                     <div 
                       key={item.id}
-                      className="flex items-center gap-3 p-3 bg-white/5 rounded-lg border border-white/10"
+                      className="flex flex-col sm:flex-row items-center gap-4 p-4 bg-white/10 rounded-2xl border border-white/20"
                     >
                       {/* Product Image */}
-                      <div className="relative w-16 h-16 overflow-hidden rounded-lg flex-shrink-0">
+                      <div className="relative w-24 h-24 sm:w-32 sm:h-32 overflow-hidden rounded-lg flex-shrink-0">
                         <Image
                           src={item.image}
                           alt={item.name}
@@ -103,56 +91,46 @@ export default function Cart() {
                         />
                       </div>
 
-                      {/* Product Info */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-semibold text-white mb-1 truncate">{item.name}</h3>
-                        <p className="text-white/60 text-xs mb-1 truncate">{item.description}</p>
-                        <span className="text-lg font-bold text-pink-300">${item.price}</span>
-                      </div>
-
-                      {/* Quantity Controls */}
-                      <div className="flex items-center gap-2">
-                        <div className="flex items-center gap-1">
+                      {/* Product Info & Quantity */}
+                      <div className="flex flex-col sm:flex-row flex-grow items-center w-full">
+                        <div className="flex-grow text-center sm:text-left mb-4 sm:mb-0">
+                          <h3 className="text-lg font-semibold text-white mb-1">{item.name}</h3>
+                          <p className="text-pink-300 font-bold text-lg">${item.price}</p>
+                        </div>
+                        
+                        {/* Quantity Controls */}
+                        <div className="flex items-center gap-3 sm:gap-4 flex-shrink-0">
                           <button
                             onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
-                            className="w-6 h-6 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors duration-200 flex items-center justify-center text-sm"
+                            className="w-8 h-8 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors duration-200 flex items-center justify-center font-bold"
                           >
                             -
                           </button>
-                          <span className="text-white font-semibold min-w-[1.5rem] text-center text-sm">
+                          <span className="text-white font-semibold text-lg min-w-[2rem] text-center">
                             {item.quantity}
                           </span>
                           <button
                             onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
-                            className="w-6 h-6 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors duration-200 flex items-center justify-center text-sm"
+                            className="w-8 h-8 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors duration-200 flex items-center justify-center font-bold"
                           >
                             +
                           </button>
                         </div>
-                        
-                        {/* Remove Button */}
-                        <button
-                          onClick={() => handleRemoveItem(item.id)}
-                          className="text-red-400 hover:text-red-300 transition-colors duration-200 text-xs ml-2"
-                        >
-                          Remove
-                        </button>
                       </div>
 
-                      {/* Item Total */}
-                      <div className="text-right min-w-[70px]">
-                        <span className="text-base font-bold text-pink-300">
-                          ${(item.price * item.quantity).toFixed(2)}
-                        </span>
-                      </div>
+                      {/* Remove Button */}
+                      <button
+                        onClick={() => handleRemoveItem(item.id)}
+                        className="text-red-400 hover:text-red-300 transition-colors duration-200 text-2xl flex-shrink-0"
+                      >
+                        &times;
+                      </button>
                     </div>
                   ))}
-                </div>
-              </div>
             </div>
 
             {/* Right Column - Checkout Summary */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-1">
               <div className="bg-white/10 border border-white/30 rounded-2xl p-6 sticky top-6">
                 <h2 className="text-2xl font-bold text-white mb-6">Order Summary</h2>
                 
