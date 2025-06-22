@@ -24,14 +24,20 @@ function CartIcon() {
 }
 
 export default function Header() {
+  const handleBack = () => {
+    if (typeof window !== 'undefined') {
+      window.history.back();
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 p-4 bg-black/50 backdrop-blur-sm flex justify-between items-center">
-      <Link
-        href="/"
+      <button
+        onClick={handleBack}
         className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white px-4 py-2 rounded-full font-semibold hover:from-pink-600 hover:to-pink-700 transition-all duration-200 hover:scale-105 shadow-lg"
       >
-        <span>Back to Home</span>
-      </Link>
+        <span>Back</span>
+      </button>
       <CartIcon />
     </header>
   );
